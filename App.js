@@ -9,13 +9,15 @@ const app = express()
 app.use(Upload())
 app.use(cors())
 
+
+
 app.get("/admins", (req, res) => {
  var adminsGet = "SELECT * FROM admins"
  connection.query(adminsGet, (err, result) => {
   if (!err) {
    res.status(200).send(result)
   } else {
-   res.status(400).send("Product was not get")
+   res.status(400).send("Admins was not get")
   }
  })
 })
@@ -66,6 +68,19 @@ app.put("/admins/:id", (req, res) => {
  })
 
 })
+
+app.get("/users", (req, res) => {
+  var userGet = "SELECT * FROM users"
+  connection.query(userGet, (err, result) => {
+    if(!err) {
+      res.status(200).send(result)
+    } else {
+      res.status(400).send("Users was not get")
+    }
+  })
+})
+
+
 
 app.listen(6060, (err) => {
  if (!err) {
