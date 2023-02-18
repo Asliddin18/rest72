@@ -81,7 +81,7 @@ app.put("/admins/:id", (req, res) => {
   const id = req.params.id
   const ReqBody = req.body
 
-  connection.query("UPDATE Admins SET name=?, password=?, category=?, surname=?, date=?, passport=?, nickname=? WHERE id=?", [ReqBody.name, ReqBody.password, "admin", ReqBody.surname, ReqBody.date, ReqBody.passport, ReqBody.nickname, id], (err, result) => {
+  connection.query("UPDATE Admins SET name=?, password=?, surname=?, date=?, passport=?, nickname=? WHERE id=?", [ReqBody.name, ReqBody.password, ReqBody.surname, ReqBody.date, ReqBody.passport, ReqBody.nickname, id], (err, result) => {
     if (!err) {
       if (result.affectedRows == 0) {
         res.status(400).send('Admin is does not found')
