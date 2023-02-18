@@ -104,8 +104,8 @@ app.put("/admins/:id", (req, res) => {
       res.status(400).send("Users was not get")
     }
   })
-})
-app.post("/users", (req, res) => {
+}) */
+/* app.post("/users", (req, res) => {
   const Id = uuid.v4()
   const R = req.body
 
@@ -156,8 +156,8 @@ app.put("/users/:id", (req, res) => {
 }) */
 
 /* category */
-/* app.get("/category", (req, res) => {
-  var CategoryGet = "SELECT * FROM category"
+app.get("/category", (req, res) => {
+  var CategoryGet = "SELECT * FROM Category"
   connection.query(CategoryGet, (err, result) => {
     if (!err) {
       res.status(200).send(result)
@@ -170,7 +170,7 @@ app.post("/category", (req, res) => {
   const CategoryName = req.body.CategoryName
   var Id = uuid.v4()
 
-  connection.query("INSERT INTO category values(?, ?)", [Id, CategoryName], (err, result) => {
+  connection.query("INSERT INTO Category values(?, ?, ?)", [Id, CategoryName, "[]"], (err, result) => {
     if (!err) {
       res.status(201).send("Category Added Successfully")
     } else {
@@ -180,7 +180,7 @@ app.post("/category", (req, res) => {
 })
 app.delete("/category/:id", (req, res) => {
   const id = req.params.id
-  connection.query("DELETE FROM category WHERE CategoryId=?", [id], (err, result) => {
+  connection.query("DELETE FROM Category WHERE CategoryId=?", [id], (err, result) => {
 
     if (!err) {
       if (result.affectedRows === 0) {
@@ -197,7 +197,7 @@ app.put("/category/:id", (req, res) => {
   const id = req.params.id
   const ReqBody = req.body
 
-  connection.query("UPDATE category SET CategoryName=? WHERE CategoryId=?", [ReqBody.CategoryName, id], (err, result) => {
+  connection.query("UPDATE Category SET CategoryName=? WHERE CategoryId=?", [ReqBody.CategoryName, id], (err, result) => {
     if (!err) {
       if (result.affectedRows == 0) {
         res.status(400).send('Category is does not found')
@@ -208,7 +208,7 @@ app.put("/category/:id", (req, res) => {
       res.status(500).send(err)
     }
   })
-}) */
+}) 
 
 app.listen(6060, (err) => {
   if (!err) {

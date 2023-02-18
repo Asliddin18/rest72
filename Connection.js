@@ -1,19 +1,18 @@
-const mysql = require("mysql")
+const mysql = require("mysql2")
 
 var connection = mysql.createConnection({
- MYSQLPORT: 5703,
- MYSQLHOST: "containers-us-west-89.railway.app",
- MYSQLUSER: "root",
- MYSQLPASSWORD: "3PiembvxC3VA19IjECes",
- MYSQLDATABASE: "railway",
- MYSQL_URL: `${{ MYSQLUSER }}:${{ MYSQLPASSWORD }}@${{ MYSQLHOST }}:${{ MYSQLPORT }}/${{ MYSQLDATABASE }}`
+ host: "containers-us-west-83.railway.app",
+ port: 7129,
+ user: "root",
+ password: "4zB51jfMFUUM45UKmWSm",
+ database: "railway",
 })
 
 connection.connect((err) => {
  if(!err) {
   console.log("connect to MySQL")
  } else {
-  console.log("Can't connect to MySQL")
+  console.log("Failed to Connect to MySQL")
  }
 })
 
