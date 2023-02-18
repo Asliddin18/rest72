@@ -1,11 +1,12 @@
 const mysql = require("mysql")
 
 var connection = mysql.createConnection({
- port: 3306,
- host: "localhost",
- user: "root",
- password: "U_A1118Tiny",
- database: "rest72"
+ MYSQLPORT: 5703,
+ MYSQLHOST: "containers-us-west-89.railway.app",
+ MYSQLUSER: "root",
+ MYSQLPASSWORD: "3PiembvxC3VA19IjECes",
+ MYSQLDATABASE: "railway",
+ MYSQL_URL: `${{ MYSQLUSER }}:${{ MYSQLPASSWORD }}@${{ MYSQLHOST }}:${{ MYSQLPORT }}/${{ MYSQLDATABASE }}`
 })
 
 connection.connect((err) => {

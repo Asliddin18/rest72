@@ -13,7 +13,7 @@ app.use(Upload())
 app.use(cors())
 
 /* login */
-app.post('/login', (req, res) => {
+/* app.post('/login', (req, res) => {
   const reqUsername = req.body.name
   const password = req.body.password
   const accessToken = jwt.sign(reqUsername, process.env.ACCESS_TOKEN_SECRET)
@@ -32,9 +32,9 @@ app.post('/login', (req, res) => {
     }
   })
 }) 
-
+ */
 /* admins */
-app.get("/admins", authenticateToken, (req, res) => {
+/* app.get("/admins", authenticateToken, (req, res) => {
   var adminsGet = "SELECT * FROM admins"
   connection.query(adminsGet, (err, result) => {
     if (!err) {
@@ -91,11 +91,11 @@ app.put("/admins/:id", (req, res) => {
       res.status(500).send(err)
     }
   })
-})
+}) */
 
 
 /* users */
-app.get("/users", (req, res) => {
+/* app.get("/users", (req, res) => {
   var userGet = "SELECT * FROM users"
   connection.query(userGet, (err, result) => {
     if (!err) {
@@ -153,10 +153,10 @@ app.put("/users/:id", (req, res) => {
       res.status(500).send(err)
     }
   })
-})
+}) */
 
 /* category */
-app.get("/category", (req, res) => {
+/* app.get("/category", (req, res) => {
   var CategoryGet = "SELECT * FROM category"
   connection.query(CategoryGet, (err, result) => {
     if (!err) {
@@ -208,7 +208,7 @@ app.put("/category/:id", (req, res) => {
       res.status(500).send(err)
     }
   })
-})
+}) */
 
 app.listen(6060, (err) => {
   if (!err) {
