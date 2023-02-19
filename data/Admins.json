@@ -1,0 +1,22 @@
+[
+  {
+    "Id": "e599b500-834d-4e01-8fc1-7bd46248d9ff",
+    "name": "hel",
+    "surname": "asdas",
+    "date": "12.12.12",
+    "passport": "ITN 123123",
+    "nickname": "testing",
+    "category": "superadmin",
+    "password": "Test"
+  },
+  {
+    "Id": "b883ca35-bd19-41d7-8962-8bef048ce09c",
+    "name": "12312",
+    "surname": "asdas",
+    "date": "12.12.12",
+    "passport": "ITN 123123",
+    "nickname": "testing",
+    "category": "superadmin",
+    "password": "Test"
+  }
+]
