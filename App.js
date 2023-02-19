@@ -14,14 +14,14 @@ app.use(cors())
 
 /* login */
 app.post('/login', (req, res) => {
-  const reqUsername = req.body.name
+  const reqNickname = req.body.nickname
   const password = req.body.password
-  const accessToken = jwt.sign(reqUsername, process.env.ACCESS_TOKEN_SECRET)
+  const accessToken = jwt.sign(reqNickname, process.env.ACCESS_TOKEN_SECRET)
   var admins = "SELECT * FROM Admins"
   connection.query(admins, (err, result) => {
     var loginCheck = false
     result.map(item => {
-      if (item.name === reqUsername && item.password === password) {
+      if (item.nickname === reqNickname && item.password === password) {
         loginCheck = true
       }
     })
@@ -95,9 +95,9 @@ app.put("/admins/:id", (req, res) => {
 })
 
 
-/* users */
-app.get("/users", (req, res) => {
-  var userGet = "SELECT * FROM Persons"
+/* works */
+app.get("/works", (req, res) => {
+  var userGet = "SELECT * FROM works"
   connection.query(userGet, (err, result) => {
     if (!err) {
       res.status(200).send(result)
@@ -106,13 +106,13 @@ app.get("/users", (req, res) => {
     }
   })
 })
-app.post("/users", (req, res) => {
+app.post("/works", (req, res) => {
   const Id = uuid.v4()
   const R = req.body
 
-  connection.query("INSERT INTO Persons values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+  connection.query("INSERT INTO works values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [Id, R.UserName, R.Date, R.Jinsi, R.Nogironligi, R.RuxiyHolat, R.Ishjoyi, R.lavozimi, R.OilaAxvoli, R.VoyYetmaganFarzandi, R.MuqaddamSud, R.MuqaddamVaqti, R.AyblovQisqa, R.JinoyatVaqti, R.JinoyatHudud, R.JinoyatJoyi, R.UshlanganSana, R.AybElon, R.AybModda, R.AybModdaQism, R.AybModdaBandi, R.AybOrgani, R.AybElonFIO, R.QamoqBolmagan, R.QamoqExtiyot, R.QamoqUy, R.AyblovProkLavozim, R.AyblovProkFIO, R.JinoyatZarar, R.ZararQoplanish,
-      R.MolMulQoplanish, R.QoplanishFoiz, R.IshProk, R.IshPorkFIO, R.AybTopish, R.Moddasi, R.Qismi, R.Bandi, R.AyblovVozKech, R.JazoTur, R.JazoMiqdori, R.ShartliHukm, R.Modda57, R.Modda96, R.MuddatOtib, R.XavfYoqot, R.Pushaymon, R.Yarashgan, R.Kasallik, R.AktiTufay, R.userscol, R.IjYoq, R.AmaldaPushay, R.SSudHukmSana, R.SSudyaFIO, R.SAybliModda, R.SAybliQismi, R.SAybliBandi, R.SAydanVoz, R.SJazoTuri, R.SJazoMiq, R.SShartli, R.S57Modda, R.S96Modda, R.SOtibket, R.SIjXavf, R.SAmaldaPush, R.SYarshMun, R.SKasallik, R.SAktAs, R.SYoq, R.SAmal, R.Ijkattabol, R.Unchaogir, R.Ogir, R.OtaOgir, R.TumanXul, R.ShaharXul, R.BoshXul],
+      R.MolMulQoplanish, R.QoplanishFoiz, R.IshProk, R.IshPorkFIO, R.AybTopish, R.Moddasi, R.Qismi, R.Bandi, R.AyblovVozKech, R.JazoTur, R.JazoMiqdori, R.ShartliHukm, R.Modda57, R.Modda96, R.MuddatOtib, R.XavfYoqot, R.Pushaymon, R.Yarashgan, R.Kasallik, R.AktiTufay, R.userscol, R.IjYoq, R.AmaldaPushay, R.SSudHukmSana, R.SSudyaFIO, R.SAybliModda, R.SAybliQismi, R.SAybliBandi, R.SAydanVoz, R.SJazoTuri, R.SJazoMiq, R.SShartli, R.S57Modda, R.S96Modda, R.SOtibket, R.SIjXavf, R.SAmaldaPush, R.SYarshMun, R.SKasallik, R.SAktAs, R.SYoq, R.SAmal, R.Ijkattabol, R.Unchaogir, R.Ogir, R.OtaOgir, R.TumanXul, R.ShaharXul, R.BoshXul, "[]"],
     (err, result) => {
       if (!err) {
         res.status(201).send("User Added Successfully")
@@ -121,10 +121,10 @@ app.post("/users", (req, res) => {
       }
     })
 })
-app.delete("/users/:id", (req, res) => {
+app.delete("/works/:id", (req, res) => {
   const ReqId = req.params.id
   const id = req.params.id
-  connection.query("DELETE FROM users WHERE id=?", [id], (err, result) => {
+  connection.query("DELETE FROM works WHERE UserId=?", [id], (err, result) => {
 
     if (!err) {
       if (result.affectedRows == 0) {
@@ -137,11 +137,11 @@ app.delete("/users/:id", (req, res) => {
     }
   })
 })
-app.put("/users/:id", (req, res) => {
+app.put("/works/:id", (req, res) => {
   const Id = req.params.id
   const R = req.body
 
-  connection.query("UPDATE Persons SET Username=?, Date=?, Jinsi=?, Nogironligi=?, ruxiyXolat=?, IshJoyi=?, Lavozimi=?, oilaviyAxvoli=?, voyFarzandi=?, muqaddamSud=?, MuqddamVaqti=?, AybloqQizqa=?, JinoyatVaqti=?, JinoyatHudud=?, JinoyatJoyi=?, UshlanganSana=?, AybElon=?, AybModda=?, AybModdaQism=?, AybModdaBandi=?, AybOrgani=?, AybElonFIO=?, QamoqBolmagan=?, QamoqExtiyot=?, QamoqUy=?, AyblovProkLavozim=?, AyblovProkFIO=?, JinoyatZarar=?, ZararQoplanish=?, MolMulQoplanish=?, QoplanishFoiz=?, IshProk=?, IshPorkFIO=?, AybTopish=?, Moddasi=?, Qismi=?, Bandi=?, AyblovVozKech=?, JazoTur=?, JazoMiqdori=?, ShartliHukm=?, Modda57=?, Modda96=?, MuddatOtib=?, XavfYoqot=?, Pushaymon=?, Yarashgan=?, Kasallik=?, AktiTufay=?, userscol=?, IjYoq=?, AmaldaPushay=?, SSudHukmSana=?, SSudyaFIO=?, SAybliModda=?, SAybliQismi=?, SAybliBandi=?, SAydanVoz=?, SJazoTuri=?, SJazoMiq=?, SShartli=?, S57Modda=?, S96Modda=?, SOtibket=?, SIjXavf=?, SAmaldaPush=?, SYarshMun=?, SKasallik=?, SAktAs=?, SYoq=?, SAmal=?, Ijkattabol=?, Unchaogir=?, Ogir=?, OtaOgir=?, TumanXul=?, ShaharXul=?, BoshXul=? WHERE UserId`=?", 
+  connection.query("UPDATE works SET Username=?, Date=?, Jinsi=?, Nogironligi=?, ruxiyXolat=?, IshJoyi=?, Lavozimi=?, oilaviyAxvoli=?, voyFarzandi=?, muqaddamSud=?, MuqddamVaqti=?, AybloqQizqa=?, JinoyatVaqti=?, JinoyatHudud=?, JinoyatJoyi=?, UshlanganSana=?, AybElon=?, AybModda=?, AybModdaQism=?, AybModdaBandi=?, AybOrgani=?, AybElonFIO=?, QamoqBolmagan=?, QamoqExtiyot=?, QamoqUy=?, AyblovProkLavozim=?, AyblovProkFIO=?, JinoyatZarar=?, ZararQoplanish=?, MolMulQoplanish=?, QoplanishFoiz=?, IshProk=?, IshPorkFIO=?, AybTopish=?, Moddasi=?, Qismi=?, Bandi=?, AyblovVozKech=?, JazoTur=?, JazoMiqdori=?, ShartliHukm=?, Modda57=?, Modda96=?, MuddatOtib=?, XavfYoqot=?, Pushaymon=?, Yarashgan=?, Kasallik=?, AktiTufay=?, userscol=?, IjYoq=?, AmaldaPushay=?, SSudHukmSana=?, SSudyaFIO=?, SAybliModda=?, SAybliQismi=?, SAybliBandi=?, SAydanVoz=?, SJazoTuri=?, SJazoMiq=?, SShartli=?, S57Modda=?, S96Modda=?, SOtibket=?, SIjXavf=?, SAmaldaPush=?, SYarshMun=?, SKasallik=?, SAktAs=?, SYoq=?, SAmal=?, Ijkattabol=?, Unchaogir=?, Ogir=?, OtaOgir=?, TumanXul=?, ShaharXul=?, BoshXul=? WHERE UserId`=?", 
   [R.UserName, R.Date, R.Jinsi, R.Nogironligi, R.RuxiyHolat, R.Ishjoyi, R.lavozimi, R.OilaAxvoli, R.VoyYetmaganFarzandi, R.MuqaddamSud, R.MuqaddamVaqti, R.AyblovQisqa, R.JinoyatVaqti, R.JinoyatHudud, R.JinoyatJoyi, R.UshlanganSana, R.AybElon, R.AybModda, R.AybModdaQism, R.AybModdaBandi, R.AybOrgani, R.AybElonFIO, R.QamoqBolmagan, R.QamoqExtiyot, R.QamoqUy, R.AyblovProkLavozim, R.AyblovProkFIO, R.JinoyatZarar, R.ZararQoplanish, R.MolMulQoplanish, R.QoplanishFoiz, R.IshProk, R.IshPorkFIO, R.AybTopish, R.Moddasi, R.Qismi, R.Bandi, R.AyblovVozKech, R.JazoTur, R.JazoMiqdori, R.ShartliHukm, R.Modda57, R.Modda96, R.MuddatOtib, R.XavfYoqot, R.Pushaymon, R.Yarashgan, R.Kasallik, R.AktiTufay, R.userscol, R.IjYoq, R.AmaldaPushay, R.SSudHukmSana, R.SSudyaFIO, R.SAybliModda,R.SAybliQismi, R.SAybliBandi, R.SAydanVoz, R.SJazoTuri, R.SJazoMiq, R.SShartli, R.S57Modda, R.S96Modda, R.SOtibket, R.SIjXavf, R.SAmaldaPush, R.SYarshMun, R.SKasallik, R.SAktAs, R.SYoq, R.SAmal, R.Ijkattabol, R.Unchaogir, R.Ogir, R.OtaOgir, R.TumanXul, R.ShaharXul, R.BoshXul, Id], 
   (err, result) => {
     if (!err) {
@@ -155,6 +155,11 @@ app.put("/users/:id", (req, res) => {
     }
   })
 }) 
+
+/* persons */
+app.post("/persons", (req, res) => {
+  
+})
 
 /* category */
 app.get("/category", (req, res) => {
