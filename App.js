@@ -519,13 +519,15 @@ app.get("/history", (req, res) => {
 app.post("/history", (req, res) => {
   const HistoryJson = JSON.parse(fs.readFileSync("./data/History.json", "utf-8"))
   const date = new Date()
-  const presentDate = `${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}-${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}-${date.getFullYear()};  Hour: ${date.getHours()}:${date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()}`
+  const presentDate = `${date.getDate() < 10 ? "0" + date.getDate() : date.getDate()}-${date.getMonth() < 10 ? "0" + date.getMonth() : date.getMonth()}-${date.getFullYear()}`
+  const presentHour = `${date.getHours()}:${date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()}`
 
   if (req.UserName !== "") {
     const newObj = {
       id: uuid.v4(),
       UserName: req.body.UserName,
-      date: presentDate
+      date: presentDate,
+      hour: presentHour
     }
     HistoryJson.push(newObj)
     fs.writeFileSync("./data/History.json", JSON.stringify(HistoryJson, null, 2))
