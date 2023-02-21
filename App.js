@@ -33,11 +33,11 @@ app.post('/login', (req, res) => {
 
 
 /* admins */
-app.get("/admins", (req, res) => {
+app.get("/admins", authenticateToken, (req, res) => {
   const AdminsJson = JSON.parse(fs.readFileSync("./data/Admins.json", "utf-8"))
   res.status(200).send(AdminsJson)
 })
-app.post("/admins", (req, res) => {
+app.post("/admins", authenticateToken, (req, res) => {
   const AdminsJson = JSON.parse(fs.readFileSync("./data/Admins.json", "utf-8"))
   const name = req.body.name
   const password = req.body.password
@@ -65,7 +65,7 @@ app.post("/admins", (req, res) => {
     res.status(201).send("Admin Created")
   }
 })
-app.delete("/admins/:id", (req, res) => {
+app.delete("/admins/:id", authenticateToken, (req, res) => {
   const AdminsJson = JSON.parse(fs.readFileSync("./data/Admins.json", "utf-8"))
   const ReqId = req.params.id
   let del = false
@@ -84,7 +84,7 @@ app.delete("/admins/:id", (req, res) => {
     res.status(400).send("Id Not Found")
   }
 })
-app.put("/admins/:id", (req, res) => {
+app.put("/admins/:id", authenticateToken, (req, res) => {
   const AdminsJson = JSON.parse(fs.readFileSync("./data/Admins.json", "utf-8"))
   const ReqId = req.params.id
   var edit = false
