@@ -22,13 +22,23 @@ app.post('/login', (req, res) => {
   AdminsJson.map(item => {
     if (item.nickname === reqNickname && item.password === password) {
       loginCheck = true
+      const newData = {
+        "Id": item.Id,
+        "name": item.name,
+        "surname": item.surname,
+        "date": item.date,
+        "passport": item.passport,
+        "nickname": item.nickname,
+        "category": item.category,
+        "password": item.password,
+        "token": accessToken
+      }
+      res.status(200).send(newData)
     }
   })
-  if (loginCheck) {
-    res.status(200).send(accessToken)
-  } else {
+  if (loginCheck === false) {
     res.status(503).send("Password or Name Error")
-  }
+  } 
 })
 
 
